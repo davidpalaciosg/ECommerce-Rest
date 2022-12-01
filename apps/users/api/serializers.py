@@ -20,3 +20,33 @@ class UserSerializer(serializers.ModelSerializer):
         if not any(not char.isalnum() for char in value):
             raise serializers.ValidationError('La contraseña debe contener al menos un caracter especial')
         return value
+    
+    #Create user from serializer
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
+    
+    #Update user from serializer (encrypt password)
+    def update(self, instance, validated_data):
+        updated_user = super().update(instance, validated_data)
+        updated_user.set_password(validated_data['password'])
+        updated_user.save()
+        return updated_user
+    
+#Serializer to list User information
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','username','email','name','last_name', 'password']
+    
+    #Custom representation of a user, default shows all fields
+    '''
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'username': instance.username,
+            'email': instance.email,
+            'name': instance.name,
+            'last_name': instance.last_name,
+        }
+    '''

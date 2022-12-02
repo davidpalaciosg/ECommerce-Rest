@@ -5,4 +5,4 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        exclude = ['state']
+        exclude = ['state', 'created_date', 'modified_date', 'deleted_date']

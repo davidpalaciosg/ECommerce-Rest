@@ -22,6 +22,7 @@ urlpatterns = [
     path('indicator/delete/<int:pk>', gv.IndicatorDestroyApiView.as_view(), name='indicator_delete_api'),
 
     #Product CRUD
-    path('product/', pv.ProductListApiView.as_view(), name='product_api'),
+    path('product/all', pv.ProductListApiView.as_view(), name='product_api'),
+    path('product/create', pv.ProductCreateApiView.as_view(), name='product_create_api'),
 ]
   

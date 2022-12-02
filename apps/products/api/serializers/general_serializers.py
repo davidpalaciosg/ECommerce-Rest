@@ -4,14 +4,14 @@ from apps.products.models import MeasureUnit, CategoryProduct, Indicator
 class MeasureUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = MeasureUnit
-        exclude = ['state']
+        fields = ['id','description']
 
 class CategoryProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryProduct
-        exclude = ['state']
+        fields = ['id','description']
 
 class IndicatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Indicator
-        exclude = ['state']
+        fields = ['id','discount_value','category_product']

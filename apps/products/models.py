@@ -19,8 +19,7 @@ class MeasureUnit(SharedModelHistorical):
 class CategoryProduct(SharedModelHistorical):
 
     description = models.CharField('Descripción', max_length=50, null=False, blank=False, unique=True)
-    measure_unit = models.ForeignKey(MeasureUnit, on_delete=models.CASCADE, null=False, blank=False, verbose_name='Unidad de Medida')
-
+    
     class Meta:
         verbose_name = "Categoria de Producto"
         verbose_name_plural = "Categorias de Productos"
@@ -47,7 +46,9 @@ class Product(SharedModelHistorical):
     name = models.CharField('Nombre de Producto', max_length=150, null=False, blank=False, unique=True)
     description = models.TextField('Descripción de Producto', blank=False, null=False)
     image = models.ImageField('Imagen de Producto', upload_to='products/', null=True, blank=True)
-    
+    measure_unit = models.ForeignKey(MeasureUnit, on_delete=models.CASCADE, null=True, blank=False, verbose_name='Unidad de Medida')
+    category_product = models.ForeignKey(CategoryProduct, on_delete=models.CASCADE, verbose_name='Categoria de Producto', null=True)
+
     class Meta:
         verbose_name = ("Producto")
         verbose_name_plural = ("Productos")

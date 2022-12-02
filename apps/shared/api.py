@@ -10,13 +10,11 @@ class GeneralListApiView(generics.ListAPIView):
     def get_queryset(self):
         model = self.get_serializer().Meta.model
         return model.objects.filter(state=True)
+    
 #CREATE
 class GeneralCreateApiView(generics.CreateAPIView):
     serializer_class = None
     
-    def get_queryset(self):
-        model = self.get_serializer().Meta.model
-        return model.objects.filter(state=True)
 #UPDATE
 class GeneralUpdateApiView(generics.UpdateAPIView):
     serializer_class = None
@@ -24,6 +22,7 @@ class GeneralUpdateApiView(generics.UpdateAPIView):
     def get_queryset(self):
         model = self.get_serializer().Meta.model
         return model.objects.filter(state=True)
+    
 #DELETE
 class GeneralDestroyApiView(generics.DestroyAPIView):
     serializer_class = None

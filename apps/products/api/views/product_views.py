@@ -1,5 +1,4 @@
-from rest_framework.response import Response 
-from apps.shared.api import GeneralListApiView, GeneralCreateApiView, GeneralRetrieveApiView, GeneralUpdateApiView, GeneralDestroyApiView
+from apps.shared.GenericViews import GeneralListApiView, GeneralCreateApiView, GeneralRetrieveApiView, GeneralUpdateApiView, GeneralDestroyApiView
 from apps.products.api.serializers.product_serializers import ProductListSerializer, ProductCreateSerializer
 
 #CRUD Product

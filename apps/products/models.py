@@ -1,5 +1,5 @@
 from django.db import models
-from apps.shared.models import SharedModelHistorical
+from apps.shared.GenericModels import SharedModelHistorical
 
 # Create your models here.
 

@@ -30,6 +30,13 @@ class GeneralUpdateApiView(generics.UpdateAPIView):
         model = self.get_serializer().Meta.model
         return model.objects.filter(state=True)
     
+    #Patch: obtain the object to update
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance:
+            return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
+        return Response({'detail': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+    
 #DELETE
 class GeneralDestroyApiView(generics.DestroyAPIView):
     serializer_class = None
@@ -43,7 +50,7 @@ class GeneralDestroyApiView(generics.DestroyAPIView):
         if instance: 
                 instance.state = False
                 instance.save()
-                return Response({'message': 'Object deleted'}, status=status.HTTP_200_OK)
+                return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
         return Response({'message': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
     
 #DETAIL RETRIEVE

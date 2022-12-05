@@ -22,6 +22,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         return{
             'id': instance.id,
+            'name': instance.name,
             'description': instance.description,
             'image': instance.image.url if instance.image else "",
             'measure_unit': instance.measure_unit.description,

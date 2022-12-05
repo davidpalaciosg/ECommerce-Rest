@@ -18,5 +18,8 @@ class ProductRetrieveApiView(GeneralRetrieveApiView):
 #DELETE
 class ProductDestroyApiView(GeneralDestroyApiView):
     serializer_class = ProductListSerializer
-    
+
+#UPDATE
+class ProductUpdateApiView(GeneralUpdateApiView):
+    serializer_class = ProductCreateSerializer
     

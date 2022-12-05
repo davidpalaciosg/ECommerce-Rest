@@ -24,5 +24,8 @@ urlpatterns = [
     #Product CRUD
     path('product/all', pv.ProductListApiView.as_view(), name='product_api'),
     path('product/create', pv.ProductCreateApiView.as_view(), name='product_create_api'),
+    path('product/detail/<int:pk>', pv.ProductRetrieveApiView.as_view(), name='product_retrieve_api'),
+    #path('product/update/<int:pk>', pv.Prod.as_view(), name='product_update_api'),
+    path('product/delete/<int:pk>', pv.ProductDestroyApiView.as_view(), name='product_delete_api'),
 ]
   

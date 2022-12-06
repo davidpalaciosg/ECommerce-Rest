@@ -5,6 +5,8 @@ from rest_framework import viewsets
 #CRUD WITH GENERAL VIEWSET
 class GenericViewSet(viewsets.ModelViewSet):
     serializer_class = None
+    serializerCreation = None
+    serializerUpdate = None
     
     def get_queryset(self):
         model = self.get_serializer().Meta.model
@@ -46,3 +48,16 @@ class GenericViewSet(viewsets.ModelViewSet):
             return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
         return Response({'message': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
     
+    #Override this method to use a different serializer to create or update an object
+    def get_serializer(self, *args, **kwargs):
+        #Creation serializer
+        if self.action == 'create':
+            if self.serializerCreation:
+                return self.serializerCreation(*args, **kwargs)
+        #Update, retrieve, patch serializer
+        elif self.action == 'update':
+            if self.serializerUpdate:
+                return self.serializerUpdate(*args, **kwargs)
+        
+        return super().get_serializer(*args, **kwargs)
+        

@@ -1,6 +1,8 @@
 from apps.shared.views.GenericViews import GenericListApiView, GenericCreateApiView, GenericUpdateApiView, GenericDestroyApiView
 from apps.shared.views.GenericViewSets import GenericViewSet
 from apps.products.api.serializers.general_serializers import *
+from rest_framework.response import Response
+from rest_framework import status
 
 #Measure Unit CRUD
 
@@ -39,7 +41,9 @@ class CategoryProductDestroyApiView(GenericDestroyApiView):
 #Indicator ViewSet
 class IndicatorViewSet(GenericViewSet):
     serializer_class = IndicatorSerializer
-
+    serializerCreation = IndicatorCreateSerializer
+    serializerUpdate = IndicatorCreateSerializer
+    
 #Indicator API Views
 class IndicatorListApiView(GenericListApiView):
     serializer_class = IndicatorSerializer

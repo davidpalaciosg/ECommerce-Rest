@@ -9,14 +9,8 @@ from rest_framework import status
 #CRUD PRODUCT USING VIEWSETS
 class ProductViewSet(GenericViewSet):
     serializer_class = ProductListSerializer
-    
-    def create(self, request, *args, **kwargs):
-        #The serializer is different to create a new object
-        serializer = ProductCreateSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializerCreation = ProductCreateSerializer
+    serializerUpdate = ProductCreateSerializer
 
 #CRUD PRODUCT USING API VIEWS
 #READ

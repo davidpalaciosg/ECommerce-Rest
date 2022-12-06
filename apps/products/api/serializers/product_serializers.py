@@ -5,7 +5,7 @@ from apps.products.models import Product
 from apps.products.api.serializers.general_serializers import MeasureUnitSerializer, CategoryProductSerializer
 
 #Serializer for list a Product
-class ProductListSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     measure_unit = MeasureUnitSerializer()
     category_product = CategoryProductSerializer()
     

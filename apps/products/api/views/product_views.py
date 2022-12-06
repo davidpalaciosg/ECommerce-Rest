@@ -19,6 +19,13 @@ class ProductListApiView(GenericListApiView):
     
 #READ ALL PRODUCTS BY CATEGORY DESCRIPTION 
 class ProductByCategoryDescriptionListApiView(GenericListApiView):
+    '''
+    List all products by the category_product description
+    
+    
+    params
+        -category_product_description (str): name of the category_product
+    '''
     serializer_class = ProductSerializer
     def get_queryset(self):
         model = self.get_serializer().Meta.model
@@ -35,6 +42,13 @@ class ProductByCategoryDescriptionListApiView(GenericListApiView):
         
 #READ ALL PRODUCTS BY CATEGORY ID
 class ProductByCategoryIdListApiView(GenericListApiView):
+    '''
+    List all products by the category_product id
+    
+    
+    params
+        -id (int): id of the category_product
+    '''
     serializer_class = ProductSerializer
     def get_queryset(self):
         model = self.get_serializer().Meta.model

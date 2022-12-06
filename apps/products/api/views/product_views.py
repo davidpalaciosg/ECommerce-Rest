@@ -24,14 +24,31 @@ class ProductByCategoryDescriptionListApiView(GenericListApiView):
         model = self.get_serializer().Meta.model
         #Return all products with state True and category_product description
         return model.objects.filter(state=True, category_product__description=self.kwargs['category_product_description'])
-
+    
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if queryset.count() == 0:
+            return Response({'detail': 'No records found '}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
 #READ ALL PRODUCTS BY CATEGORY ID
 class ProductByCategoryIdListApiView(GenericListApiView):
     serializer_class = ProductSerializer
     def get_queryset(self):
         model = self.get_serializer().Meta.model
         #Return all products with state True and category_product id
-        return model.objects.filter(state=True, category_product_id=self.kwargs['pk'])
+        return model.objects.filter(state=True, category_product_id=self.kwargs['id'])
+    
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if queryset.count() == 0:
+            return Response({'detail': 'No records found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
 
 #CREATE
 class ProductCreateApiView(GenericCreateApiView):

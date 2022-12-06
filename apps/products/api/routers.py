@@ -14,7 +14,7 @@ router.register(r'indicators', gv.IndicatorViewSet, basename='indicators')
 
 #Include Aditional views
 urlpatterns = [
-    path('products/category/<int:pk>', pv.ProductByCategoryIdListApiView.as_view(), name='product_by_category_api'),
+    path('products/category/<int:id>', pv.ProductByCategoryIdListApiView.as_view(), name='product_by_category_api'),
     path('products/category/<str:category_product_description>', pv.ProductByCategoryDescriptionListApiView.as_view(), name='product_by_category_api'),
     #path('measureUnit/all', gv.MeasureUnitListApiView.as_view(), name='measure_unit_api'),
     #path('measureUnit/create', gv.MeasureUnitCreateApiView.as_view(), name='measure_unit_create_api'),

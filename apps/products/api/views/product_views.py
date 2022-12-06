@@ -16,14 +16,23 @@ class ProductViewSet(GenericViewSet):
 #READ
 class ProductListApiView(GenericListApiView):
     serializer_class = ProductSerializer
+    
 #READ ALL PRODUCTS BY CATEGORY DESCRIPTION 
-class ProductByCategoryListApiView(GenericListApiView):
+class ProductByCategoryDescriptionListApiView(GenericListApiView):
     serializer_class = ProductSerializer
     def get_queryset(self):
         model = self.get_serializer().Meta.model
         #Return all products with state True and category_product description
         return model.objects.filter(state=True, category_product__description=self.kwargs['category_product_description'])
-    
+
+#READ ALL PRODUCTS BY CATEGORY ID
+class ProductByCategoryIdListApiView(GenericListApiView):
+    serializer_class = ProductSerializer
+    def get_queryset(self):
+        model = self.get_serializer().Meta.model
+        #Return all products with state True and category_product id
+        return model.objects.filter(state=True, category_product_id=self.kwargs['pk'])
+
 #CREATE
 class ProductCreateApiView(GenericCreateApiView):
     serializer_class = ProductCreateSerializer

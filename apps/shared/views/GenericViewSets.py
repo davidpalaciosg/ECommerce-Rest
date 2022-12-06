@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 
-#CRUD WITH GENERIC VIEWSET
-class GeneralViewSet(viewsets.ModelViewSet):
+#CRUD WITH GENERAL VIEWSET
+class GenericViewSet(viewsets.ModelViewSet):
     serializer_class = None
     
     def get_queryset(self):

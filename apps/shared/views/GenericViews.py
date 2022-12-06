@@ -5,7 +5,7 @@ from rest_framework import viewsets
 
 #CRUD GENERIC API WITH APIVIEW
 #READ LIST
-class GeneralListApiView(generics.ListAPIView):
+class GenericListApiView(generics.ListAPIView):
     serializer_class = None
     
     def get_queryset(self):
@@ -13,7 +13,7 @@ class GeneralListApiView(generics.ListAPIView):
         return model.objects.filter(state=True)
     
 #CREATE
-class GeneralCreateApiView(generics.CreateAPIView):
+class GenericCreateApiView(generics.CreateAPIView):
     serializer_class = None
     #Override method to create a new object
     def post(self, request, *args, **kwargs):
@@ -24,7 +24,7 @@ class GeneralCreateApiView(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 #UPDATE
-class GeneralUpdateApiView(generics.UpdateAPIView):
+class GenericUpdateApiView(generics.UpdateAPIView):
     serializer_class = None
     
     def get_queryset(self):
@@ -39,7 +39,7 @@ class GeneralUpdateApiView(generics.UpdateAPIView):
         return Response({'detail': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
     
 #DELETE
-class GeneralDestroyApiView(generics.DestroyAPIView):
+class GenericDestroyApiView(generics.DestroyAPIView):
     serializer_class = None
     
     def get_queryset(self):
@@ -55,7 +55,7 @@ class GeneralDestroyApiView(generics.DestroyAPIView):
         return Response({'message': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
 
 #DETAIL RETRIEVE
-class GeneralRetrieveApiView(generics.RetrieveAPIView):
+class GenericRetrieveApiView(generics.RetrieveAPIView):
     serializer_class = None
     
     def get_queryset(self):

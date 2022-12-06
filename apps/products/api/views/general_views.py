@@ -1,51 +1,51 @@
-from apps.shared.views.GenericViews import GeneralListApiView, GeneralCreateApiView, GeneralUpdateApiView, GeneralDestroyApiView
-from apps.shared.views.GenericViewSets import GeneralViewSet
+from apps.shared.views.GenericViews import GenericListApiView, GenericCreateApiView, GenericUpdateApiView, GenericDestroyApiView
+from apps.shared.views.GenericViewSets import GenericViewSet
 from apps.products.api.serializers.general_serializers import *
 
 #Measure Unit CRUD
 
 #Mesaure Unit ViewSet
-class MeasureUnitViewSet(GeneralViewSet):
+class MeasureUnitViewSet(GenericViewSet):
     serializer_class = MeasureUnitSerializer
 
 #Measure Unit API Views
-class MeasureUnitListApiView(GeneralListApiView):
+class MeasureUnitListApiView(GenericListApiView):
     serializer_class = MeasureUnitSerializer
-class MeasureUnitCreateApiView(GeneralCreateApiView):
+class MeasureUnitCreateApiView(GenericCreateApiView):
     serializer_class = MeasureUnitSerializer
-class MeasureUnitUpdateApiView(GeneralUpdateApiView):
+class MeasureUnitUpdateApiView(GenericUpdateApiView):
     serializer_class = MeasureUnitSerializer
-class MeasureUnitDestroyApiView(GeneralDestroyApiView):
+class MeasureUnitDestroyApiView(GenericDestroyApiView):
     serializer_class = MeasureUnitSerializer
 
 #Category Product CRUD
 
 #Category Product ViewSet
-class CategoryProductViewSet(GeneralViewSet):
+class CategoryProductViewSet(GenericViewSet):
     serializer_class = CategoryProductSerializer
     
 #Category Product API Views
-class CategoryProductListApiView(GeneralListApiView):
+class CategoryProductListApiView(GenericListApiView):
     serializer_class = CategoryProductSerializer
-class CategoryProductCreateApiView(GeneralCreateApiView):
+class CategoryProductCreateApiView(GenericCreateApiView):
     serializer_class = CategoryProductSerializer
-class CategoryProductUpdateApiView(GeneralUpdateApiView):
+class CategoryProductUpdateApiView(GenericUpdateApiView):
     serializer_class = CategoryProductSerializer
-class CategoryProductDestroyApiView(GeneralDestroyApiView):
+class CategoryProductDestroyApiView(GenericDestroyApiView):
     serializer_class = CategoryProductSerializer
 
 #Indicator CRUD
 
 #Indicator ViewSet
-class IndicatorViewSet(GeneralViewSet):
+class IndicatorViewSet(GenericViewSet):
     serializer_class = IndicatorSerializer
 
 #Indicator API Views
-class IndicatorListApiView(GeneralListApiView):
+class IndicatorListApiView(GenericListApiView):
     serializer_class = IndicatorSerializer
-class IndicatorCreateApiView(GeneralCreateApiView):
+class IndicatorCreateApiView(GenericCreateApiView):
     serializer_class = IndicatorSerializer
-class IndicatorUpdateApiView(GeneralUpdateApiView):
+class IndicatorUpdateApiView(GenericUpdateApiView):
     serializer_class = IndicatorSerializer
-class IndicatorDestroyApiView(GeneralDestroyApiView):
+class IndicatorDestroyApiView(GenericDestroyApiView):
     serializer_class = IndicatorSerializer

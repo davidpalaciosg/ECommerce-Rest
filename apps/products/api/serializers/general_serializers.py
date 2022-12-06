@@ -12,6 +12,7 @@ class CategoryProductSerializer(serializers.ModelSerializer):
         fields = ['id','description']
 
 class IndicatorSerializer(serializers.ModelSerializer):
+    category_product = CategoryProductSerializer()
     class Meta:
         model = Indicator
         fields = ['id','discount_value','category_product']

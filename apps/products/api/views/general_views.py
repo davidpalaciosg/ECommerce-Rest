@@ -1,4 +1,4 @@
-from apps.shared.GenericViews import GeneralListApiView, GeneralCreateApiView, GeneralUpdateApiView, GeneralDestroyApiView
+from apps.shared.views.GenericViews import GeneralListApiView, GeneralCreateApiView, GeneralUpdateApiView, GeneralDestroyApiView
 from apps.products.api.serializers.general_serializers import *
 
 #Measure Unit CRUD

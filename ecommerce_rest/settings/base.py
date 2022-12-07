@@ -35,6 +35,7 @@ LOCAL_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
+    'rest_framework.authtoken', #Basic rest framework authentication
     'simple_history',
     'drf_yasg', # swagger
 ]

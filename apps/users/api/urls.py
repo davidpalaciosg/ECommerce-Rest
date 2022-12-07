@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.users.api.api import user_api_view, user_detail_id_api_view, user_detail_username_api_view
+from apps.users.api.views.api import user_api_view, user_detail_id_api_view, user_detail_username_api_view
 
 urlpatterns = [
     path('all/', user_api_view, name='usuario_api'),

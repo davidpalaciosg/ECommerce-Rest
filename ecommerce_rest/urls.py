@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
 
+#Login with token authentication
+from apps.users.api.views.login_logout_views import Login, Logout
+
 #Swagger
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -20,6 +23,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+   path('login/', Login.as_view(), name='login'),
+   path('logout/', Logout.as_view(), name='logout'),
+   
     #Swagger urls
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

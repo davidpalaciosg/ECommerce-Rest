@@ -1,13 +1,16 @@
+from rest_framework.response import Response
+from rest_framework import status
+
 from apps.shared.views.GenericViews import GenericListApiView, GenericCreateApiView, GenericRetrieveApiView, GenericUpdateApiView, GenericDestroyApiView
 from apps.shared.views.GenericViewSets import GenericViewSet
 from apps.products.api.serializers.product_serializers import ProductSerializer, ProductCreateSerializer
-from rest_framework.response import Response
-from rest_framework import status
+
+from apps.shared.security.authentication_mixin import Authentication
 
 #CRUD Product
 
 #CRUD PRODUCT USING VIEWSETS
-class ProductViewSet(GenericViewSet):
+class ProductViewSet(Authentication,GenericViewSet):
     serializer_class = ProductSerializer
     serializerCreation = ProductCreateSerializer
     serializerUpdate = ProductCreateSerializer

@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 
-from ..serializers import UserSerializer
+from ...users.api.serializers import UserSerializer
 
 class Login(ObtainAuthToken):
     #Try to login

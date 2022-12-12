@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 #Login with token authentication
-from apps.users.api.views.login_logout_views import Login, Logout
+from apps.shared.security.login_logout_views import Login, Logout
 
 #Swagger
 from rest_framework import permissions

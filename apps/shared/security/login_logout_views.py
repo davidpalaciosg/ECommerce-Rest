@@ -68,7 +68,17 @@ class Logout(APIView):
             return Response({'error': 'User not found'}, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response({'error': 'Token not found'}, status=status.HTTP_409_CONFLICT)
-            
+
+#View to refresh User Token
+class UserRefreshToken(APIView):
+    def get(self,request, *args, **kwargs):
+        username = request.GET.get('username')
+        try:
+            user = UserSerializer().Meta.model.objects.filter(username=username).first()
+            user_token = Token.objects.filter(user=user).first()
+            return Response({'token': user_token.key}, status=status.HTTP_200_OK)
+        except:
+            return Response({'error': 'User not found'}, status=status.HTTP_400_BAD_REQUEST)            
 
 def deleteAllSesions(user):
     '''

@@ -20,10 +20,8 @@ class ExpiringTokenAuthentication(TokenAuthentication):
             raise AuthenticationFailed('User inactive or deleted')
         
         is_expired = self.token_expire_handler(token)
-        if is_expired:
-            raise AuthenticationFailed('The token is expired')
         
-        return (token.user, token)
+        return token.user, token, is_expired
     
     def expires_in(self,token):
         '''

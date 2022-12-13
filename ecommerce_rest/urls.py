@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 #Login with token authentication
-from apps.shared.security.login_logout_views import Login, Logout
+from apps.shared.security.login_logout_views import Login, Logout, UserRefreshToken
 
 #Swagger
 from rest_framework import permissions
@@ -25,6 +25,7 @@ schema_view = get_schema_view(
 urlpatterns = [
    path('login/', Login.as_view(), name='login'),
    path('logout/', Logout.as_view(), name='logout'),
+   path('refresh-token/', UserRefreshToken.as_view(), name='refresh-token'),
    
     #Swagger urls
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),

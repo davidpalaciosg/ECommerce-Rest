@@ -10,7 +10,8 @@ from apps.shared.security.authentication_mixin import Authentication
 #CRUD Product
 
 #CRUD PRODUCT USING VIEWSETS
-class ProductViewSet(Authentication,GenericViewSet):
+#class ProductViewSet(Authentication,GenericViewSet): #Authentication
+class ProductViewSet(GenericViewSet):
     serializer_class = ProductSerializer
     serializerCreation = ProductCreateSerializer
     serializerUpdate = ProductCreateSerializer

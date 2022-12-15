@@ -38,6 +38,7 @@ THIRD_APPS = [
     'rest_framework.authtoken', #Basic rest framework authentication
     'simple_history',
     'drf_yasg', # swagger
+    'corsheaders',
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -49,6 +50,9 @@ SWAGGER_SETTINGS = {
 TOKEN_EXPIRED_AFTER_SECONDS=3600
 
 MIDDLEWARE = [
+    #CORS
+    "corsheaders.middleware.CorsMiddleware",
+    #Django default
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # simple history
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
@@ -121,3 +126,16 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+#CORS ALLOWED ORIGINS
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:9000",
+    "http://127.0.0.1:5500",
+    
+]
+
+#ALLOW ALL ORIGINS
+CORS_ORIGIN_ALLOW_ALL = True

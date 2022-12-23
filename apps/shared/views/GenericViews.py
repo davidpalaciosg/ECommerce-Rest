@@ -35,7 +35,7 @@ class GenericUpdateApiView(generics.UpdateAPIView):
         instance = self.get_object()
         if instance:
             return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
-        return Response({'detail': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
     
 #DELETE
 class GenericDestroyApiView(generics.DestroyAPIView):
@@ -51,7 +51,7 @@ class GenericDestroyApiView(generics.DestroyAPIView):
                 instance.state = False
                 instance.save()
                 return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
-        return Response({'message': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
 
 #DETAIL RETRIEVE
 class GenericRetrieveApiView(generics.RetrieveAPIView):

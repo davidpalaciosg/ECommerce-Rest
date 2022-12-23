@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 
+from apps.shared.security.authentication_mixin import Authentication
+
 from ...users.api.serializers import UserSerializer
 
 class Login(ObtainAuthToken):
@@ -70,13 +72,15 @@ class Logout(APIView):
             return Response({'error': 'Token not found'}, status=status.HTTP_409_CONFLICT)
 
 #View to refresh User Token
-class UserRefreshToken(APIView):
+class UserRefreshToken(Authentication, APIView):
     def get(self,request, *args, **kwargs):
-        username = request.GET.get('username')
         try:
-            user = UserSerializer().Meta.model.objects.filter(username=username).first()
-            user_token = Token.objects.filter(user=user).first()
-            return Response({'token': user_token.key}, status=status.HTTP_200_OK)
+            user_token,_ = Token.objects.get_or_create(user=self.user).first()
+            user_serializer = UserSerializer(self.user)
+            return Response(
+                {'token': user_token.key, 
+                'user':user_serializer.data
+                }, status=status.HTTP_200_OK)
         except:
             return Response({'error': 'User not found'}, status=status.HTTP_400_BAD_REQUEST)            
 

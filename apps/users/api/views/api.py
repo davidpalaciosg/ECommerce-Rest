@@ -22,7 +22,7 @@ def user_api_view(request: Request):
             user_serializer.save()
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response({'message': 'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'error': 'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
 
 #GET/UPDATE/DELETE USER BY ID
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -47,7 +47,7 @@ def user_detail_id_api_view(request: Request, pk: int):
         elif request.method == 'DELETE':
             user.delete()
             return Response({'message': 'User deleted'})
-    return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+    return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
 #GET USER BY USERNAME
 @api_view(['GET'])

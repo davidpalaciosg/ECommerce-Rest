@@ -39,7 +39,7 @@ class ProductByCategoryDescriptionListApiView(GenericListApiView):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         if queryset.count() == 0:
-            return Response({'detail': 'No records found '}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'No records found '}, status=status.HTTP_404_NOT_FOUND)
         
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -62,7 +62,7 @@ class ProductByCategoryIdListApiView(GenericListApiView):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         if queryset.count() == 0:
-            return Response({'detail': 'No records found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'No records found'}, status=status.HTTP_404_NOT_FOUND)
         
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

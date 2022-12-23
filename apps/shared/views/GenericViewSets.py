@@ -49,7 +49,7 @@ class GenericViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         if instance:
             return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
-        return Response({'message': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
     
     def update(self, request, *args, **kwargs):
         '''
@@ -66,7 +66,7 @@ class GenericViewSet(viewsets.ModelViewSet):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({'message': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
     
     def destroy(self, request, *args, **kwargs):
         '''
@@ -81,7 +81,7 @@ class GenericViewSet(viewsets.ModelViewSet):
             instance.state = False
             instance.save()
             return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
-        return Response({'message': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
     
     #Override this method to use a different serializer to create or update an object
     def get_serializer(self, *args, **kwargs):

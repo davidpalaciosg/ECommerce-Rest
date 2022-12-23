@@ -7,6 +7,7 @@ from apps.shared.security.ExpiringTokenAuth import ExpiringTokenAuthentication
 
 class Authentication(object):
     user = None
+    user_expired = None
     
     def get_user(self, request):
         token = get_authorization_header(request).split()
@@ -16,7 +17,7 @@ class Authentication(object):
             user,token, is_expired = token_expire.authenticate_credentials(token)
             return user,token, is_expired 
         except:
-            return None, None, None
+            return None, None, True
         
     def dispatch(self, request, *args, **kwargs):
        user, token, is_expired = self.get_user(request)
@@ -39,4 +40,6 @@ class Authentication(object):
            return response
        
        self.user = user
+       self.user_expired = is_expired
+       
        return super().dispatch(request, *args, **kwargs)

@@ -4,6 +4,7 @@ from apps.users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        #fields = "__all__"
         fields = ['id','username','email','name','last_name', 'password', 'image']
     
     #Custom validation
@@ -26,18 +27,17 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
     
-    #Update user from serializer (encrypt password)
-    def update(self, instance, validated_data):
-        updated_user = super().update(instance, validated_data)
-        updated_user.set_password(validated_data['password'])
-        updated_user.save()
-        return updated_user
-    
 #Serializer to list User information
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id','username','email','name','last_name', 'password']
+        
+#Serualizer to update User information
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ['password']
     
     #Custom representation of a user, default shows all fields
     '''

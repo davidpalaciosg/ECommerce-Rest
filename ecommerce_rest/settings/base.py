@@ -35,7 +35,8 @@ LOCAL_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
-    'rest_framework.authtoken', #Basic rest framework authentication
+    #'rest_framework.authtoken', #Basic rest framework authentication
+    'rest_framework_simplejwt', #JSON WEB TOKEN AUTHENTICATION
     'simple_history',
     'drf_yasg', # swagger
     'corsheaders',
@@ -47,7 +48,13 @@ SWAGGER_SETTINGS = {
     'DOC_EXPANSION': 'none',
 }
 
-TOKEN_EXPIRED_AFTER_SECONDS=3600
+#SIMPLE JWT AUTHENTICATION (JSON WEB TOKEN):
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+
 
 MIDDLEWARE = [
     #CORS

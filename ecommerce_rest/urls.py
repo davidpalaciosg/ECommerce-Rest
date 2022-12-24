@@ -2,7 +2,13 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 #Login with token authentication
-from apps.shared.security.login_logout_views import Login, Logout, UserRefreshToken
+from apps.shared.security.login_logout_views import Login, Logout
+
+#JWT authentication
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 #Swagger
 from rest_framework import permissions
@@ -23,9 +29,12 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+   #JWT authentication
+   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
    path('login/', Login.as_view(), name='login'),
    path('logout/', Logout.as_view(), name='logout'),
-   path('refresh-token/', UserRefreshToken.as_view(), name='refresh-token'),
    
     #Swagger urls
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),

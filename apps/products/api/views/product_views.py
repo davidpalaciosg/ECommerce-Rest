@@ -1,11 +1,10 @@
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 from apps.shared.views.GenericViews import GenericListApiView, GenericCreateApiView, GenericRetrieveApiView, GenericUpdateApiView, GenericDestroyApiView
 from apps.shared.views.GenericViewSets import GenericViewSet
 from apps.products.api.serializers.product_serializers import ProductSerializer, ProductCreateSerializer
-
-from apps.shared.security.authentication_mixin import Authentication
 
 #CRUD Product
 
@@ -15,6 +14,9 @@ class ProductViewSet(GenericViewSet):
     serializer_class = ProductSerializer
     serializerCreation = ProductCreateSerializer
     serializerUpdate = ProductCreateSerializer
+    
+    #Permissions
+    permission_classes = [IsAuthenticated]
 
 #CRUD PRODUCT USING API VIEWS
 #READ

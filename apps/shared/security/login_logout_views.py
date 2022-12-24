@@ -1,97 +1,49 @@
-from datetime import datetime
-from django.contrib.sessions.models import Session
+from django.contrib.auth import authenticate
 
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
-from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.generics import GenericAPIView
 
-from apps.shared.security.authentication_mixin import Authentication
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
-from ...users.api.serializers import UserSerializer
+from apps.users.api.serializers import UserSerializer
 
-class Login(ObtainAuthToken):
-    #Try to login
+from apps.users.models import User
+
+class Login(TokenObtainPairView):
+    serializer_class = TokenObtainPairSerializer
+    
     def post(self, request, *args, **kwargs):
-        login_serializer = self.serializer_class(data=request.data, context={'request': request})
-        if login_serializer.is_valid():
-            user = login_serializer.validated_data['user']
-            serializer = UserSerializer(user)
-            
-            #Verify if user is active
-            if user.is_active:
-                #Generate or obtain token
-                token, created = Token.objects.get_or_create(user=user)
-                
-                #First login    
-                if created: 
-                    return Response({
-                        'token': token.key,
-                        'user': serializer.data,
-                        'message': 'User logged in successfully'
-                        }, status=status.HTTP_201_CREATED
-                    )
-                #If user has already logged in on another session
-                else:
-                    #Delete all sessions
-                    deleteAllSesions(user)
-                        
-                    token.delete() #Delete old token
-                    #Create new token  
-                    token = Token.objects.create(user=user)
-                    return Response({
-                        'token': token.key,
-                        'user': serializer.data,
-                        'message': 'User logged in successfully, old sessions deleted'
-                        }, status=status.HTTP_200_OK
-                    )
-            else:
-                return Response({'error': 'User is not active'}, status=status.HTTP_401_UNAUTHORIZED)
-        return Response(login_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        username = request.data.get('username')
+        password = request.data.get('password')
+        
+        user = authenticate(username=username, password=password)
+        if user:
+           login_serializer = self.get_serializer(data=request.data)
+           if login_serializer.is_valid():
+               user_serializer = UserSerializer(user)
+               data_response = {
+                   'user': user_serializer.data,
+                   'access_token': login_serializer.validated_data['access'],
+                   'refresh_token': login_serializer.validated_data['refresh'],
+                   'message': 'Login successfully',
+               }
+               
+               return Response(data_response, status=status.HTTP_200_OK)
+           else:
+                return Response(login_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                   
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED) 
 
-class Logout(APIView):
+class Logout(GenericAPIView):
     def post(self, request, *args, **kwargs):
-        #Get token
-        try: 
-            token = request.POST.get('token')
-            token = Token.objects.filter(key=token).first()
-            print(token.user)
-            if token:
-                user = token.user
-                #Delete all sessions
-                deleteAllSesions(user)
-                token.delete() #Delete token
-                
-                session_message = 'All sessions deleted'
-                token_message = 'Token deleted'
-                return Response({'session_message': session_message, 'token_message': token_message},
-                                status=status.HTTP_200_OK)
-            return Response({'error': 'User not found'}, status=status.HTTP_400_BAD_REQUEST)
-        except:
-            return Response({'error': 'Token not found'}, status=status.HTTP_409_CONFLICT)
-
-#View to refresh User Token
-class UserRefreshToken(Authentication, APIView):
-    def get(self,request, *args, **kwargs):
-        try:
-            user_token,_ = Token.objects.get_or_create(user=self.user).first()
-            user_serializer = UserSerializer(self.user)
-            return Response(
-                {'token': user_token.key, 
-                'user':user_serializer.data
-                }, status=status.HTTP_200_OK)
-        except:
-            return Response({'error': 'User not found'}, status=status.HTTP_400_BAD_REQUEST)            
-
-def deleteAllSesions(user):
-    '''
-    Given an user, delete all sessions
-    '''
-    all_sessions = Session.objects.filter(expire_date__gte=datetime.now())
-    if all_sessions.exists():
-        #Delete old sessions
-        for session in all_sessions:
-            session_data = session.get_decoded()
-            if user.id == int(session_data.get('_auth_user_id')):
-                session.delete()
+        
+        user = request.user
+        if user:
+            print(user.id)
+            #Refresh the access token
+            RefreshToken.for_user(user)
+            return Response({'message': 'Logout successfully'}, status=status.HTTP_200_OK)
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)

@@ -10,8 +10,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from apps.users.api.serializers import UserSerializer
 
-from apps.users.models import User
-
 class Login(TokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
     
@@ -26,8 +24,8 @@ class Login(TokenObtainPairView):
                user_serializer = UserSerializer(user)
                data_response = {
                    'user': user_serializer.data,
-                   'access_token': login_serializer.validated_data['access'],
                    'refresh_token': login_serializer.validated_data['refresh'],
+                   'access_token': login_serializer.validated_data['access'],
                    'message': 'Login successfully',
                }
                
@@ -41,9 +39,14 @@ class Logout(GenericAPIView):
     def post(self, request, *args, **kwargs):
         
         user = request.user
-        if user:
+        if user.is_authenticated:
             print(user.id)
             #Refresh the access token
             RefreshToken.for_user(user)
-            return Response({'message': 'Logout successfully'}, status=status.HTTP_200_OK)
+            data_response={
+                'username': f"{user.username}",
+                'email': f"{user.email}",
+                'message': 'Logout successfully',
+            }
+            return Response(data_response, status=status.HTTP_200_OK)
         return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)

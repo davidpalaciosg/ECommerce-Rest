@@ -4,7 +4,7 @@ from apps.users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id','username','email','name','last_name', 'password', 'image']
     
     #Custom validation
     def validate_password(self, value):

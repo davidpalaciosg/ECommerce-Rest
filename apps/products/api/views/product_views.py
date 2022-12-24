@@ -2,15 +2,15 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from apps.shared.views.GenericViews import GenericListApiView, GenericCreateApiView, GenericRetrieveApiView, GenericUpdateApiView, GenericDestroyApiView
-from apps.shared.views.GenericViewSets import GenericViewSet
+from apps.shared.views.GenericApiViews import GenericListApiView, GenericCreateApiView, GenericRetrieveApiView, GenericUpdateApiView, GenericDestroyApiView
+from apps.shared.views.GenericModelViewSets import GenericModelViewSet
 from apps.products.api.serializers.product_serializers import ProductSerializer, ProductCreateSerializer
 
 #CRUD Product
 
 #CRUD PRODUCT USING VIEWSETS
 #class ProductViewSet(Authentication,GenericViewSet): #Authentication
-class ProductViewSet(GenericViewSet):
+class ProductViewSet(GenericModelViewSet):
     serializer_class = ProductSerializer
     serializerCreation = ProductCreateSerializer
     serializerUpdate = ProductCreateSerializer

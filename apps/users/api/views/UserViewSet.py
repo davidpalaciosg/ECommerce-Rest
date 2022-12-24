@@ -2,12 +2,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from apps.shared.views.GenericViewSets import GenericViewSet
+from apps.shared.views.GenericModelViewSets import GenericModelViewSet
 
 from apps.users.api.serializers import UserSerializer
 
 #CRUD User
-class UserViewSet(GenericViewSet):
+class UserViewSet(GenericModelViewSet):
     serializer_class = UserSerializer
     
     def get_queryset(self):

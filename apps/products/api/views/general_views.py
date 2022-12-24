@@ -1,5 +1,5 @@
-from apps.shared.views.GenericViews import GenericListApiView, GenericCreateApiView, GenericUpdateApiView, GenericDestroyApiView
-from apps.shared.views.GenericViewSets import GenericViewSet
+from apps.shared.views.GenericApiViews import GenericListApiView, GenericCreateApiView, GenericUpdateApiView, GenericDestroyApiView
+from apps.shared.views.GenericModelViewSets import GenericModelViewSet
 from apps.products.api.serializers.general_serializers import *
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,7 +7,7 @@ from rest_framework import status
 #Measure Unit CRUD
 
 #Mesaure Unit ViewSet
-class MeasureUnitViewSet(GenericViewSet):
+class MeasureUnitViewSet(GenericModelViewSet):
     serializer_class = MeasureUnitSerializer
 
 #Measure Unit API Views
@@ -23,7 +23,7 @@ class MeasureUnitDestroyApiView(GenericDestroyApiView):
 #Category Product CRUD
 
 #Category Product ViewSet
-class CategoryProductViewSet(GenericViewSet):
+class CategoryProductViewSet(GenericModelViewSet):
     serializer_class = CategoryProductSerializer
     
 #Category Product API Views
@@ -39,7 +39,7 @@ class CategoryProductDestroyApiView(GenericDestroyApiView):
 #Indicator CRUD
 
 #Indicator ViewSet
-class IndicatorViewSet(GenericViewSet):
+class IndicatorViewSet(GenericModelViewSet):
     serializer_class = IndicatorSerializer
     serializerCreation = IndicatorCreateSerializer
     serializerUpdate = IndicatorCreateSerializer

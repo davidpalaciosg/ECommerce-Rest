@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework import viewsets
 
 #CRUD WITH GENERAL VIEWSET
-class GenericViewSet(viewsets.ModelViewSet):
+class GenericModelViewSet(viewsets.ModelViewSet):
     serializer_class = None
     serializerCreation = None
     serializerUpdate = None

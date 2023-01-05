@@ -46,6 +46,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.api.routers')),
     path('products/', include('apps.products.api.routers')),
+    path('expense-manager/', include('apps.expense_manager.api.routers')),
     
 ]
 

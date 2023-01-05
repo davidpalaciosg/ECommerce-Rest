@@ -31,6 +31,7 @@ LOCAL_APPS = [
     'apps.shared',
     'apps.users',
     'apps.products',
+    'apps.expense_manager'
 ]
 
 THIRD_APPS = [

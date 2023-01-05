@@ -16,7 +16,7 @@ class ProductViewSet(GenericModelViewSet):
     serializerUpdate = ProductCreateSerializer
     
     #Permissions
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
 #CRUD PRODUCT USING API VIEWS
 #READ

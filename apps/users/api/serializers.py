@@ -38,6 +38,12 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ['password']
+        
+#Serializer to update User password and email
+class UserUpdatePasswordEmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'password']
     
     #Custom representation of a user, default shows all fields
     '''

@@ -28,11 +28,12 @@ class TestSetUp(APITestCase):
     
     def generateSuperUser(_):
         faker = Faker()
-        name,last_name = faker.name().lower().split(" ")
+        #Generate a random user
+        name,last_name = faker.name().split(" ")
+        name, last_name = name.lower(), last_name.lower()
         username = name + last_name
         email = username + "@gmail.com"
         password = "Abc123456"
-        
         
         user = User.objects.create_superuser(
             username=username,
@@ -41,7 +42,6 @@ class TestSetUp(APITestCase):
             email=email,
             password=password
         )
-        
         return user
 
 

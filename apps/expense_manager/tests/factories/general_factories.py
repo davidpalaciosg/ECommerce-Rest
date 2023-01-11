@@ -16,6 +16,16 @@ class SupplierFactory:
             'phone':str(faker.random_number(digits=9)),
             'email':faker.email()
         }
+        
+    def generate_JSON_from_supplier(self, supplier):
+        return{
+            'ruc':supplier.ruc,
+            'business_name':supplier.business_name,
+            'address':supplier.address,
+            'phone':supplier.phone,
+            'email':supplier.email
+        }
+        
     def create_supplier(self):
         return Supplier.objects.create(**self.generate_supplier_JSON())
 

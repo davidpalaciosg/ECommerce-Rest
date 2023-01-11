@@ -37,7 +37,7 @@ class UserListSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ['password']
+        exclude = ['password', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions', 'last_login']
         
 #Serializer to update User password and email
 class UserUpdatePasswordEmailSerializer(serializers.ModelSerializer):
